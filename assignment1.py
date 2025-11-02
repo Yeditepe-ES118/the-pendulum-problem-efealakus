@@ -1,18 +1,37 @@
 # assignment1.py
-
 import math
 
 def find_period(L0, L1):
-    g = 9.81 
+    """
+    Print the pendulum period for integer lengths from L0 to L1 (inclusive),
+    and return the period for L0 and L1 as a tuple (T0, T1).
 
+    L0 and L1 are expected to be integers with 0 < L0 < L1.
+    """
     
-    for L in range(L0, L1 + 1):
-        T = 2 * math.pi * math.sqrt(L / g)
-        print("When L =", float(L), "m, T =", round(T, 1), "s")
+    if not (isinstance(L0, int) and isinstance(L1, int)):
+        raise TypeError("L0 and L1 must be integers.")
+    if not (0 < L0 < L1):
+        raise ValueError("Require integers with 0 < L0 < L1.")
+
+    g = 9.81  # m/s^2
+
+    def period(L):
+        return 2 * math.pi * math.sqrt(L / g)
 
   
-    T0 = 2 * math.pi * math.sqrt(L0 / g)
-    T1 = 2 * math.pi * math.sqrt(L1 / g)
+    for L in range(L0, L1 + 1):
+        T = period(L)
+        
+        print(f"When L = {L:4.1f} m, T = {T:3.1f} s")
 
-    return T0, T1
-find_period(2, 10)
+   
+    return period(L0), period(L1)
+
+
+
+if __name__ == "__main__":
+    T0, T1 = find_period(2, 10)
+   
+
+
